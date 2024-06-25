@@ -2,4 +2,4 @@ sqlc
 .vscode
 vendor
 bin/MorPOS
-sqlite.db
+database.db

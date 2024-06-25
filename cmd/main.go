@@ -7,19 +7,12 @@ import (
 	"os"
 
 	"github.com/MorgarAkt/MorPOS/internal/handlers"
-	"github.com/MorgarAkt/MorPOS/internal/services"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	services.InitDB("./sqlite.db")
-	defer services.CloseDB()
-
-	userService := services.NewUserService(services.Db)
-	userHandler := handlers.NewUserHandler(userService)
-
 	godotenv.Load(".env")
 
 	port := os.Getenv("PORT")
@@ -43,7 +36,6 @@ func main() {
 	v1Router.Get("/ready", handlers.HandlerReadiness)
 	v1Router.Get("/err", handlers.HandlerErr)
 	v1Router.Get("/err", handlers.HandlerErr)
-	v1Router.Post("/users", userHandler.SaveUser)
 
 	router.Mount("/v1", v1Router)
 
